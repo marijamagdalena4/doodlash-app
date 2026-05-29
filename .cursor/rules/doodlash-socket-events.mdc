@@ -1,0 +1,13 @@
+---
+description: Socket event names must match the SDD
+globs: "**/socket*.ts"
+alwaysApply: false
+---
+
+# Doodlash Socket Events
+
+- Event names and payloads must match `Doodlash_SDD.md` §5.3 (lobby) and §10 (game).
+- Do not rename events (e.g. `join_lobby` → `joinRoom`) without updating the SDD.
+- Adding a new event requires an SDD update first.
+- Lobby ack events: `join_lobby`, `rejoin_lobby`.
+- Game-critical events stay server-validated: `player_guess`, `draw_stroke`, `start_game`, `round_end`.

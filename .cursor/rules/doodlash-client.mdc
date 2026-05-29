@@ -1,0 +1,16 @@
+---
+description: Doodlash React client patterns
+globs: client/**/*
+alwaysApply: false
+---
+
+# Doodlash Client
+
+- **State:** Zustand for room, player, and game state — avoid deep prop drilling.
+- **Session:** Persist `{ name, characterId, roomCode, playerId }` in Zustand + `sessionStorage`.
+- **Rejoin:** On socket connect, call `rejoin_lobby` when session exists (lobby/game refresh).
+- **Route guards:** `/lobby` and `/game` require valid session or successful rejoin; else redirect to `/`.
+- **Landing:** Optional room code + `?room=` URL param; wait for `join_lobby` ack before navigating to lobby.
+- **Characters:** Inline SVG in components (not image files) per SDD §4.2.
+- **Styling:** Use Tailwind tokens from SDD §13 (`primary`, `bg-game`, `success`, etc.) — do not invent a new palette.
+- **Mobile (<768px):** Show “Best played on desktop” — do not build full mobile layout in MVP.

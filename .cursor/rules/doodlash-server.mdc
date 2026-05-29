@@ -1,0 +1,17 @@
+---
+description: Doodlash server authority and Socket.IO rules
+globs: server/**/*
+alwaysApply: false
+---
+
+# Doodlash Server
+
+- **Server owns:** timers, scoring (SDD §7.1), word selection, turn flow, guess validation, room lifecycle.
+- **Never trust the client** for points, secret words, or drawer identity.
+- Scope all broadcasts with Socket.IO rooms: `socket.join(roomCode)`.
+- `join_lobby` and `rejoin_lobby` use **ack callbacks** — return `{ roomCode, playerId, isHost }` or `{ error }`.
+- Reject `draw_stroke` and drawing tools from non-drawer sockets.
+- Send `word_secret` only to the drawer’s socket ID.
+- Room codes: `AAAA-####` via `crypto.randomBytes` (SDD §14.3) — **not** `nanoid`.
+- `guessedPlayers` is a server-side `Set<string>` — do not JSON-serialize Sets over the wire.
+- Timer: server `setInterval`; emit `timer_sync` every 5s.

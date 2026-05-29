@@ -1,0 +1,14 @@
+---
+description: Doodlash spec, MVP scope, and build order
+alwaysApply: true
+---
+
+# Doodlash Project
+
+- **Spec:** `Doodlash_SDD.md` (v1.1) is the source of truth. If unclear, read the SDD section — do not invent features.
+- **MVP:** §§1–11, 13–18 only. §12 is stretch — do not implement until AC-1–AC-15 pass.
+- **Build order:** server scaffold → landing → lobby → canvas → guessing/scoring → scoreboard → stretch.
+- **Layout:** `client/` (Vite + React + TS) and `server/` (Express + Socket.IO) monorepo per SDD §3.
+- **Stack:** React 18, Zustand, Tailwind, Socket.IO. No database in v1.
+- **Scope:** Match SDD file structure and event names. No auth, accounts, or extra deps unless the SDD lists them.
+- **Done:** A phase is complete when related acceptance criteria (SDD §18) are satisfiable.

@@ -1,0 +1,15 @@
+---
+description: Canvas sync and real-time drawing
+globs: client/**/canvas/**/*,client/**/hooks/**/*
+alwaysApply: false
+---
+
+# Doodlash Canvas & Realtime
+
+- Sync **stroke vectors** only — never send raw `ImageData`.
+- Flood-fill runs on the **drawer client**; broadcast result via `canvas_fill` (special fill stroke).
+- **Undo:** Drawer keeps last 20 strokes locally; on undo emit `canvas_undo` with full `strokes[]`; server replaces `room.strokes` and broadcasts.
+- **Clear:** `canvas_clear` clears server `room.strokes` for the turn.
+- Client countdown is visual only; reconcile with `timer_sync` every 5s.
+- Drawer cannot submit guesses; chat input disabled while drawing.
+- Guesses must match the **full** answer string (case-insensitive, trimmed) per SDD §6.8.
